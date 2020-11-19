@@ -1,0 +1,23 @@
+﻿@model SchedulingMeetings.Web.Models.Room
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section>
+    <form asp-controller="room" method="post" asp-action="create">
+        <h1 class="text-center" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+            Nova Sala
+        </h1><br />
+
+        <div class="row">
+            <div class="col-md-6">
+                <label>Nome:</label>
+                <input type="text" class="form-control" asp-for="RoomName" required autofocus /><br />
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%;">salvar</button>
+
+    </form>
+</section>

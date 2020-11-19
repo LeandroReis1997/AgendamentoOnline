@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="login">
+        <div class="account-login">
+            <h1>Login da conta</h1>
+            <form action="" class="login-form">
+                <div class="form-group">
+                    <input type="text" placeholder="User Name" class="form-control" required autofocus>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" class="form-control" required>
+                </div>
+                <button class="btn btn-primary loginButton">Login</button>
+                <p align="center">Não tem cadastro? <a asp-controller="user" asp-action="createuser">Clique aqui.</a></p>
+            </form>
+        </div>
+    </div>

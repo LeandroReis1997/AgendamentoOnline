@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchedulingMeetings.Web", "SchedulingMeetings.Web\SchedulingMeetings.Web.csproj", "{57E8980A-45DC-4641-9379-C479957A3FBF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchedulingMeetings.Web", "SchedulingMeetings.Web\SchedulingMeetings.Web.csproj", "{5D55D55F-0186-4BFD-9270-264C7701BD18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{57E8980A-45DC-4641-9379-C479957A3FBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{57E8980A-45DC-4641-9379-C479957A3FBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{57E8980A-45DC-4641-9379-C479957A3FBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{57E8980A-45DC-4641-9379-C479957A3FBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D55D55F-0186-4BFD-9270-264C7701BD18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D55D55F-0186-4BFD-9270-264C7701BD18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D55D55F-0186-4BFD-9270-264C7701BD18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D55D55F-0186-4BFD-9270-264C7701BD18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {78AD8EBA-2407-48E5-B32D-7FF3918B25A7}
+		SolutionGuid = {030ACE40-3AE9-49D7-9838-4A06DB336A21}
 	EndGlobalSection
 EndGlobal

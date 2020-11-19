@@ -1,0 +1,33 @@
+﻿@model SchedulingMeetings.Web.Models.UserAdmin
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section>
+    <form asp-controller="useradmin" method="post" asp-action="edit">
+        <h1 class="text-center" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+            Novo usuário
+        </h1><br />
+
+        <div class="row">
+            <div class="col-md-4">
+                <label>Nome:</label>
+                <input type="text" class="form-control" asp-for="Name" required autofocus /><br />
+            </div>
+            <div class="col-md-4">
+                <label>Nome:</label>
+                <input type="text" class="form-control" asp-for="Email" required autofocus /><br />
+            </div>
+            <div class="col-md-4">
+                <label>Nome:</label>
+                <input type="text" class="form-control" asp-for="Password" required autofocus /><br />
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%;">salvar</button>
+
+    </form>
+</section>
+
