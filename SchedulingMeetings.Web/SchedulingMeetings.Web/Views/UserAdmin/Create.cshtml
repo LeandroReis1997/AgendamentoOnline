@@ -6,7 +6,7 @@
 
 
 <section>
-    <form asp-controller="useradmin" method="post" asp-action="edit">
+    <form asp-controller="useradmin" method="post" asp-action="createuser">
         <h1 class="text-center" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
             Novo usuário
         </h1><br />
@@ -17,11 +17,11 @@
                 <input type="text" class="form-control" asp-for="Name" required autofocus /><br />
             </div>
             <div class="col-md-4">
-                <label>Nome:</label>
+                <label>Email:</label>
                 <input type="text" class="form-control" asp-for="Email" required autofocus /><br />
             </div>
             <div class="col-md-4">
-                <label>Nome:</label>
+                <label>Senha:</label>
                 <input type="text" class="form-control" asp-for="Password" required autofocus /><br />
             </div>
         </div>

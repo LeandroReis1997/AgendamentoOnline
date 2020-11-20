@@ -1,27 +1,75 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using SchedulingMeetings.Web.Models;
+using SchedulingMeetings.Web.Service;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace SchedulingMeetings.Web.Controllers
 {
     public class UserAdminController : Controller
     {
-        public IActionResult Index()
+        private readonly IMapper _mapper;
+
+        public UserAdminController(IMapper mapper)
         {
-            return View();
+            _mapper = mapper;
+        }
+        public async Task<IActionResult> Index()
+        {
+            var userAdminService = new UserAdminService();
+            var users = await userAdminService.GetAllUsers
+            ().Result.Content.ReadAsAsync<List<UserAdmin>>();
+            return View(users);
         }
 
         public IActionResult Login()
         {
             return View();
         }
-        
-        public IActionResult Create()
+
+        [Route("adduser")]
+        public IActionResult AddUser()
         {
-            return View();
+            return View("create", new UserAdmin());
         }
-        
-        public IActionResult Edit()
+
+        [HttpPost]
+        [Route("createuser")]
+        public async Task<IActionResult> CreateUser(UserAdmin userAdmin)
         {
-            return View();
+            var userAdminService = new UserAdminService();
+            var createUser = await userAdminService.AddUsers(userAdmin);
+            return RedirectToAction("Index", createUser);
+        }
+
+        [HttpGet]
+        [Route("updateuser/{id}")]
+        public IActionResult EditUser(Guid id)
+        {
+            var userAdminService = new UserAdminService();
+            var user = userAdminService.GetByUsersIdentity
+                (id).Result.Content.ReadAsAsync<UserAdmin>().Result;
+            return View("Edit", user);
+        }
+
+        [HttpPost]
+        [Route("updateuser/{id}")]
+        public async Task<IActionResult> EditUser(Guid id, UserAdmin userAdmin)
+        {
+            var userAdminService = new UserAdminService();
+            var update = await userAdminService.EditUsers(id, userAdmin);
+            return RedirectToAction("Index", update);
+        }
+
+        [Route("deleteuser/{id}")]
+        public async Task<IActionResult> DeleteUser(Guid id)
+        {
+            var userAdminService = new UserAdminService();
+            await userAdminService.DeleteUsers(id);
+            return RedirectToAction("Index");
         }
     }
 }

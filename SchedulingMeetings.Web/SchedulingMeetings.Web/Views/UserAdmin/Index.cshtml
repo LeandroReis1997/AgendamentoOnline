@@ -9,26 +9,32 @@
 </h1>
 <br />
 
-<a asp-controller="sectors" asp-action="add" class="btn btn-primary btn-lg pull-right"><i class="fas fa-plus-circle"></i> Novo</a>
+<a asp-controller="useradmin" asp-action="adduser" class="btn btn-primary btn-lg pull-right"><i class="fas fa-plus-circle"></i> Novo</a>
 <br />
 <br />
 
 <table class="table table-hover">
     <thead>
         <tr>
-            <th scope="col">Nome usuários</th>
+            <th scope="col">Nome</th>
             <th scope="col">Email</th>
         </tr>
     </thead>
-    @*@foreach (var item in Model)
+    @foreach (var item in Model)
         {
 
             <tbody>
                 <tr>
-                    <td>@item.RoomName</td>
+                    <td>@item.Name</td>
+                    <td>@item.Email</td>
+
+                    <td>
+                        <a asp-controller="useradmin" asp-action="edituser" asp-route-id="@item.UserIdentity" style="margin-left: 60%;" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                        <a asp-controller="useradmin" asp-action="deleteuser" asp-route-id="@item.UserIdentity" class="btnRemover btn btn-danger"><i class="fas fa-trash-alt text-light"></i></a>
+                    </td>
                 </tr>
             </tbody>
-        }*@
+        }
 </table>
 
 

@@ -12,7 +12,6 @@ namespace SchedulingMeetings.Web.Controllers
     public class HomeController : Controller
     {
         // GET: /<controller>/
-        [Route("")]
         [Route("~/")]
         [Route("index")]
         public IActionResult Index()

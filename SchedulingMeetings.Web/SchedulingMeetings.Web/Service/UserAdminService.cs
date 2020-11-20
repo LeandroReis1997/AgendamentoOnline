@@ -6,38 +6,38 @@ using System.Threading.Tasks;
 
 namespace SchedulingMeetings.Web.Service
 {
-    public class RoomService 
+    public class UserAdminService 
     {
-        private string BASE_URL = "https://localhost:44355/webapi/room/";
+        private string BASE_URL = "https://localhost:44355/webapi/user/";
 
-        public Task<HttpResponseMessage> AddRoom(Room room)
+        public Task<HttpResponseMessage> AddUsers(UserAdmin user)
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri(BASE_URL);
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
-            return client.PostAsJsonAsync("create", room);
+            return client.PostAsJsonAsync("create", user);
         }
 
-        public Task<HttpResponseMessage> DeleteRoom(Guid roomIdentity)
+        public Task<HttpResponseMessage> DeleteUsers(Guid userIdentity)
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri(BASE_URL);
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
-            return client.DeleteAsync("delete/" + roomIdentity);
+            return client.DeleteAsync("delete/" + userIdentity);
         }
 
-        public Task<HttpResponseMessage> EditRoom(Guid roomIdentity, Room room)
+        public Task<HttpResponseMessage> EditUsers(Guid usersIdentity, UserAdmin user)
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri(BASE_URL);
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
-            return client.PutAsJsonAsync("update/" + roomIdentity, room);
+            return client.PutAsJsonAsync("update/" + usersIdentity, user);
         }
 
-        public Task<HttpResponseMessage> GetAllRoom()
+        public Task<HttpResponseMessage> GetAllUsers()
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri(BASE_URL);
@@ -46,22 +46,22 @@ namespace SchedulingMeetings.Web.Service
             return client.GetAsync("getall");
         }
 
-        public Task<HttpResponseMessage> GetByRoom(string nameRoom)
+        public Task<HttpResponseMessage> GetByEmail(string email)
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri(BASE_URL);
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
-            return client.GetAsync($"getbyroom/{nameRoom}");
+            return client.GetAsync($"getbyemail/{email}");
         }
 
-        public Task<HttpResponseMessage> GetByRoomIdentity(Guid roomIdentity)
+        public Task<HttpResponseMessage> GetByUsersIdentity(Guid userIdentity)
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri(BASE_URL);
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
-            return client.GetAsync($"getbyroomidentity/{roomIdentity}");
+            return client.GetAsync($"getbyusersidentity/{userIdentity}");
         }
     }
 }
