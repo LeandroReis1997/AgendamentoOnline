@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
 using SchedulingMeetings.Web.DTO.Room;
-using SchedulingMeetings.Web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using SchedulingMeetings.Web.ViewModels;
 
 namespace SchedulingMeetings.Web.Mapper
 {
@@ -12,7 +8,8 @@ namespace SchedulingMeetings.Web.Mapper
     {
         public MapperProfile()
         {
-            CreateMap<RoomListDTO, Room>().ReverseMap();
+            CreateMap<RoomViewModel, RoomListDTO>().ReverseMap();
+            CreateMap<RoomViewModel, RoomDTO>();
         }
     }
 }

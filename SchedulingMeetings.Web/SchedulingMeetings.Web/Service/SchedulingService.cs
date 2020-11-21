@@ -1,4 +1,4 @@
-﻿using SchedulingMeetings.Web.Models;
+﻿using SchedulingMeetings.Web.ViewModels;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -10,7 +10,7 @@ namespace SchedulingMeetings.Web.Service
     {
         private string BASE_URL = "https://localhost:44355/webapi/scheduling/";
 
-        public Task<HttpResponseMessage> AddRoomScheduling(Scheduling scheduling)
+        public Task<HttpResponseMessage> AddRoomScheduling(SchedulingViewModel scheduling)
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri(BASE_URL);
@@ -28,7 +28,7 @@ namespace SchedulingMeetings.Web.Service
             return client.DeleteAsync("delete/" + schedulingIdentity);
         }
 
-        public Task<HttpResponseMessage> EditRoomScheduling(Guid schedulingIdentity, Scheduling scheduling)
+        public Task<HttpResponseMessage> EditRoomScheduling(Guid schedulingIdentity, SchedulingViewModel scheduling)
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri(BASE_URL);

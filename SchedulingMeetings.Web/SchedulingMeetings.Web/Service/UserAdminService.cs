@@ -1,4 +1,4 @@
-﻿using SchedulingMeetings.Web.Models;
+﻿using SchedulingMeetings.Web.ViewModels;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -10,7 +10,7 @@ namespace SchedulingMeetings.Web.Service
     {
         private string BASE_URL = "https://localhost:44355/webapi/user/";
 
-        public Task<HttpResponseMessage> AddUsers(UserAdmin user)
+        public Task<HttpResponseMessage> AddUsers(UserAdminViewModel user)
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri(BASE_URL);
@@ -28,7 +28,7 @@ namespace SchedulingMeetings.Web.Service
             return client.DeleteAsync("delete/" + userIdentity);
         }
 
-        public Task<HttpResponseMessage> EditUsers(Guid usersIdentity, UserAdmin user)
+        public Task<HttpResponseMessage> EditUsers(Guid usersIdentity, UserAdminViewModel user)
         {
             var client = new HttpClient();
             client.BaseAddress = new Uri(BASE_URL);
@@ -53,6 +53,14 @@ namespace SchedulingMeetings.Web.Service
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
             return client.GetAsync($"getbyemail/{email}");
+        }  
+        public Task<HttpResponseMessage> Login(string email, string senha)
+        {
+            var client = new HttpClient();
+            client.BaseAddress = new Uri(BASE_URL);
+            client.DefaultRequestHeaders.Accept.Add(new
+                MediaTypeWithQualityHeaderValue("application/json"));
+            return client.GetAsync($"login/{email}/{senha}");
         }
 
         public Task<HttpResponseMessage> GetByUsersIdentity(Guid userIdentity)

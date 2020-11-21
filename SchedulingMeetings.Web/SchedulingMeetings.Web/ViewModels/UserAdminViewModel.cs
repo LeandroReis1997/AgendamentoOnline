@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace SchedulingMeetings.Web.Models
+namespace SchedulingMeetings.Web.ViewModels
 {
-    public class UserAdmin
+    public class UserAdminViewModel
     {
         public Guid UserIdentity { get; set; }
         public string Name { get; set; }

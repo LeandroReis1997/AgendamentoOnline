@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using SchedulingMeetings.Web.Models;
 using SchedulingMeetings.Web.Service;
+using SchedulingMeetings.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -21,7 +21,7 @@ namespace SchedulingMeetings.Web.Controllers
         {
             var userAdminService = new UserAdminService();
             var users = await userAdminService.GetAllUsers
-            ().Result.Content.ReadAsAsync<List<UserAdmin>>();
+            ().Result.Content.ReadAsAsync<List<UserAdminViewModel>>();
             return View(users);
         }
 
@@ -30,15 +30,35 @@ namespace SchedulingMeetings.Web.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Login([FromForm]UserAdminViewModel userAdmin)
+        {
+            var userAdminService = new UserAdminService();
+            var clienteDB = userAdminService.Login(userAdmin.Email, userAdmin.Password);
+
+
+            if (clienteDB != null)
+            {
+                //_loginCliente.Login(clienteDB);
+
+                return new RedirectResult(Url.Action(nameof(HomeController)));
+            }
+            else
+            {
+                ViewData["MSG_E"] = "Usuário não encontrado, verifique o e-mail e senha digitado!";
+                return View();
+            }
+        }
+
         [Route("adduser")]
         public IActionResult AddUser()
         {
-            return View("create", new UserAdmin());
+            return View("create", new UserAdminViewModel());
         }
 
         [HttpPost]
         [Route("createuser")]
-        public async Task<IActionResult> CreateUser(UserAdmin userAdmin)
+        public async Task<IActionResult> CreateUser(UserAdminViewModel userAdmin)
         {
             var userAdminService = new UserAdminService();
             var createUser = await userAdminService.AddUsers(userAdmin);
@@ -51,13 +71,13 @@ namespace SchedulingMeetings.Web.Controllers
         {
             var userAdminService = new UserAdminService();
             var user = userAdminService.GetByUsersIdentity
-                (id).Result.Content.ReadAsAsync<UserAdmin>().Result;
+                (id).Result.Content.ReadAsAsync<UserAdminViewModel>().Result;
             return View("Edit", user);
         }
 
         [HttpPost]
         [Route("updateuser/{id}")]
-        public async Task<IActionResult> EditUser(Guid id, UserAdmin userAdmin)
+        public async Task<IActionResult> EditUser(Guid id, UserAdminViewModel userAdmin)
         {
             var userAdminService = new UserAdminService();
             var update = await userAdminService.EditUsers(id, userAdmin);

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace SchedulingMeetings.Web.Models
+namespace SchedulingMeetings.Web.ViewModels
 {
-    public class Room
+    public class RoomViewModel
     {
         public Guid RoomIdentity { get; set; }
         public string RoomName { get; set; }

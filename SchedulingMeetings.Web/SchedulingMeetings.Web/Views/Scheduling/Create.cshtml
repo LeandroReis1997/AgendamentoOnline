@@ -1,0 +1,32 @@
+﻿@model SchedulingMeetings.Web.ViewModels.SchedulingViewModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+    Novo agendamento
+</h1>
+<br />
+
+
+<form>
+    <div class="col-md-12">
+        @Html.LabelFor(m => m.RoomIdentity, "Escolha a Sala:")
+        @Html.DropDownListFor(m => m.RoomIdentity, new SelectList(Model.Room, "RoomIdentity", "RoomName", Model.Room.First().RoomIdentity), "-- Selecione a Sala --", new { @class = "form-control", @roomIdentity = "room", @required = "true", @style = "padding-top: 3px;" })<br />
+    </div>
+
+    <div class="form-group col-md-12">
+        <label>Título:</label>
+        <input type="text" class="form-control" asp-for="Title" placeholder="Título da sala" required />
+    </div>
+    <div class="form-group col-md-6">
+        <label> Início:</label>
+        <input asp-for="DateStartTime" type="datetime-local" class="form-control" placeholder="Início">
+    </div>
+    <div class="form-group col-md-6">
+        <label>Até:</label>
+        <input asp-for="DateEndTime" type="datetime-local" class="form-control" placeholder="Fim">
+    </div>
+    <center><button type="submit" class="btn btn-primary" style="width:50%; align-items:center">Agendar</button></center>
+</form>

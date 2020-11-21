@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using SchedulingMeetings.Web.DTO.Room;
-using SchedulingMeetings.Web.Models;
-using SchedulingMeetings.Web.Repository.Service;
 using SchedulingMeetings.Web.Service;
+using SchedulingMeetings.Web.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace SchedulingMeetings.Web.Controllers
@@ -22,42 +19,41 @@ namespace SchedulingMeetings.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var roomService = new RoomService();
-            var room = await roomService.GetAllRoom
-            ().Result.Content.ReadAsAsync<List<Room>>();
-            return View(room);
+            var rooms = _mapper.Map<IEnumerable<RoomViewModel>>(await roomService.GetAllRoom());
+
+            return View(rooms);
         }
 
         [Route("addroom")]
         public IActionResult AddRoom()
         {
-            return View("create", new Room());
+            return View("create", new RoomViewModel());
         }
 
         [HttpPost]
         [Route("createroom")]
-        public async Task<IActionResult> CreateRoom(Room room)
+        public async Task<IActionResult> CreateRoom(RoomViewModel room)
         {
             var roomService = new RoomService();
-            var createRoom = await roomService.AddRoom(room);
+            var createRoom = _mapper.Map<RoomViewModel>(await roomService.AddRoom(room));
             return RedirectToAction("Index", createRoom);
         }
-        
+
         [HttpGet]
         [Route("updateroom/{id}")]
-        public IActionResult EditRoom(Guid id)
+        public async Task<IActionResult> EditRoom(Guid id)
         {
             var roomService = new RoomService();
-            var room = roomService.GetByRoomIdentity
-                (id).Result.Content.ReadAsAsync<Room>().Result;
+            var room = _mapper.Map<RoomViewModel>(await roomService.GetByRoomIdentity(id));
             return View("Edit", room);
         }
 
         [HttpPost]
         [Route("updateroom/{id}")]
-        public async Task<IActionResult> EditRoom(Guid id, Room room)
+        public async Task<IActionResult> EditRoom(Guid id, RoomViewModel room)
         {
             var roomService = new RoomService();
-            var update = await roomService.EditRoom(id, room);
+            var update = _mapper.Map<RoomViewModel>(await roomService.EditRoom(id, room));
             return RedirectToAction("Index", update);
         }
 
@@ -65,7 +61,7 @@ namespace SchedulingMeetings.Web.Controllers
         public async Task<IActionResult> DeleteRoom(Guid id)
         {
             var roomService = new RoomService();
-            await roomService.DeleteRoom(id);
+            _mapper.Map<RoomViewModel>(await roomService.DeleteRoom(id));
             return RedirectToAction("Index");
         }
     }
