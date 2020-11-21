@@ -1,75 +1,89 @@
-﻿using SchedulingMeetings.Web.ViewModels;
+﻿using Newtonsoft.Json;
+using SchedulingMeetings.Web.DTO.UserAdmin;
+using SchedulingMeetings.Web.HttpClientAddres;
+using SchedulingMeetings.Web.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace SchedulingMeetings.Web.Service
 {
-    public class UserAdminService 
+    public class UserAdminService
     {
-        private string BASE_URL = "https://localhost:44355/webapi/user/";
-
-        public Task<HttpResponseMessage> AddUsers(UserAdminViewModel user)
+        public async Task<UserAdminDTO> AddUsers(UserAdminViewModel user)
         {
+            var url = new BaseAddress();
             var client = new HttpClient();
-            client.BaseAddress = new Uri(BASE_URL);
+            client.BaseAddress = new Uri(url.BASE_URL);
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
-            return client.PostAsJsonAsync("create", user);
+            var response = await client.PostAsJsonAsync($"useradmin/create", user);
+            return JsonConvert.DeserializeObject<UserAdminDTO>(await response.Content.ReadAsStringAsync());
         }
 
-        public Task<HttpResponseMessage> DeleteUsers(Guid userIdentity)
+        public async Task<UserAdminDTO> DeleteUsers(Guid userIdentity)
         {
+            var url = new BaseAddress();
             var client = new HttpClient();
-            client.BaseAddress = new Uri(BASE_URL);
+            client.BaseAddress = new Uri(url.BASE_URL);
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
-            return client.DeleteAsync("delete/" + userIdentity);
+            var response = await client.DeleteAsync($"useradmin/delete/{userIdentity}");
+            return JsonConvert.DeserializeObject<UserAdminDTO>(await response.Content.ReadAsStringAsync());
         }
 
-        public Task<HttpResponseMessage> EditUsers(Guid usersIdentity, UserAdminViewModel user)
+        public async  Task<UserAdminDTO> EditUsers(Guid usersIdentity, UserAdminViewModel user)
         {
+            var url = new BaseAddress();
             var client = new HttpClient();
-            client.BaseAddress = new Uri(BASE_URL);
+            client.BaseAddress = new Uri(url.BASE_URL);
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
-            return client.PutAsJsonAsync("update/" + usersIdentity, user);
+            var response = await client.PutAsJsonAsync($"useradmin/update/{usersIdentity}", user);
+            return JsonConvert.DeserializeObject<UserAdminDTO>(await response.Content.ReadAsStringAsync());
         }
 
-        public Task<HttpResponseMessage> GetAllUsers()
+        public async Task<List<UserAdminListDTO>> GetAllUsers()
         {
+            var url = new BaseAddress();
             var client = new HttpClient();
-            client.BaseAddress = new Uri(BASE_URL);
+            client.BaseAddress = new Uri(url.BASE_URL);
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
-            return client.GetAsync("getall");
+            var response = await client.GetAsync($"useradmin/");
+            return JsonConvert.DeserializeObject<List<UserAdminListDTO>>(await response.Content.ReadAsStringAsync());
         }
 
-        public Task<HttpResponseMessage> GetByEmail(string email)
+        public async Task<UserAdminListDTO> GetByEmail(string email)
         {
+            var url = new BaseAddress();
             var client = new HttpClient();
-            client.BaseAddress = new Uri(BASE_URL);
+            client.BaseAddress = new Uri(url.BASE_URL);
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
-            return client.GetAsync($"getbyemail/{email}");
-        }  
-        public Task<HttpResponseMessage> Login(string email, string senha)
-        {
-            var client = new HttpClient();
-            client.BaseAddress = new Uri(BASE_URL);
-            client.DefaultRequestHeaders.Accept.Add(new
-                MediaTypeWithQualityHeaderValue("application/json"));
-            return client.GetAsync($"login/{email}/{senha}");
+            var response = await client.GetAsync($"useradmin/getbyemail/{email}");
+            return JsonConvert.DeserializeObject<UserAdminListDTO>(await response.Content.ReadAsStringAsync());
         }
+        //public Task<HttpResponseMessage> Login(string email, string senha)
+        //{
+        //    var client = new HttpClient();
+        //    client.BaseAddress = new Uri(BASE_URL);
+        //    client.DefaultRequestHeaders.Accept.Add(new
+        //        MediaTypeWithQualityHeaderValue("application/json"));
+        //    return client.GetAsync($"login/{email}/{senha}");
+        //}
 
-        public Task<HttpResponseMessage> GetByUsersIdentity(Guid userIdentity)
+        public async Task<UserAdminListDTO> GetByUsersIdentity(Guid userIdentity)
         {
+            var url = new BaseAddress();
             var client = new HttpClient();
-            client.BaseAddress = new Uri(BASE_URL);
+            client.BaseAddress = new Uri(url.BASE_URL);
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
-            return client.GetAsync($"getbyusersidentity/{userIdentity}");
-        }
+            var response = await client.GetAsync($"useradmin/{userIdentity}");
+            return JsonConvert.DeserializeObject<UserAdminListDTO>(await response.Content.ReadAsStringAsync());
+        }      
     }
 }

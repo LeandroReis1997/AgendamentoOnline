@@ -1,0 +1,31 @@
+﻿@model List<SchedulingMeetings.Web.ViewModels.RoomViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+    Salas de agendamento
+</h1>
+<br />
+
+<table class="table table-hover col-md-2">
+    <thead>
+        <tr>
+            <th scope="col">Nome da Sala</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+
+        <tbody>
+            <tr>
+                <td>@item.RoomName</td>
+
+                <td>
+                    <a asp-controller="scheduling" asp-action="index" asp-route-id="@item.RoomIdentity" style="margin-left: 70%;" class="btn btn-primary btn-lg"><i class="fas fa-search"></i> Reuniões da sala</a>
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>

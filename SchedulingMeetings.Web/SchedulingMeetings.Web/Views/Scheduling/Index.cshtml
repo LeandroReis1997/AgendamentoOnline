@@ -4,5 +4,37 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h1 class="text-center" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+    Reuniões agendadas
+</h1>
+<br />
 
+<a asp-controller="scheduling" asp-action="addscheduling" class="btn btn-primary btn-lg pull-right"><i class="fas fa-plus-circle"></i> Novo</a>
+<br />
+<br />
+
+<table class="table table-hover col-md-2">
+    <thead>
+        <tr>
+            <th scope="col">Título</th>
+            <th scope="col">Início</th>
+            <th scope="col">Até</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+
+        <tbody>
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.DateStartTime</td>
+                <td>@item.DateEndTime</td>
+
+                <td>
+                    <a asp-controller="scheduling" asp-action="editscheduling" asp-route-id="@item.SchedulingIdentity" style="margin-left: 10%;" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                    <a asp-controller="scheduling" asp-action="deletescheduling" asp-route-id="@item.SchedulingIdentity" class="btnRemover btn btn-danger"><i class="fas fa-trash-alt text-light"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>

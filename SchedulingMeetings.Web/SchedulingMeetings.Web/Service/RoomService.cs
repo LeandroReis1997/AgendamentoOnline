@@ -12,8 +12,6 @@ namespace SchedulingMeetings.Web.Service
 {
     public class RoomService
     {
-        //private string BASE_URL = "https://localhost:44355/webapi/";
-
         public async Task<RoomDTO> AddRoom(RoomViewModel room)
         {
             var url = new BaseAddress();
@@ -32,7 +30,7 @@ namespace SchedulingMeetings.Web.Service
             client.BaseAddress = new Uri(url.BASE_URL);
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
-            var response = await client.DeleteAsync($"/delete/{roomIdentity}");
+            var response = await client.DeleteAsync($"room/delete/{roomIdentity}");
             return JsonConvert.DeserializeObject<RoomDTO>(await response.Content.ReadAsStringAsync());
         }
 
@@ -43,7 +41,7 @@ namespace SchedulingMeetings.Web.Service
             client.BaseAddress = new Uri(url.BASE_URL);
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
-            var response = await client.PutAsJsonAsync($"/room/update/{roomIdentity}", room);
+            var response = await client.PutAsJsonAsync($"room/update/{roomIdentity}", room);
             return JsonConvert.DeserializeObject<RoomDTO>(await response.Content.ReadAsStringAsync());
         }
 

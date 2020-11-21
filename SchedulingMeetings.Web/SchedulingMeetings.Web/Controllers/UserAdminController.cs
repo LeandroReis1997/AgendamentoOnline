@@ -20,8 +20,8 @@ namespace SchedulingMeetings.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var userAdminService = new UserAdminService();
-            var users = await userAdminService.GetAllUsers
-            ().Result.Content.ReadAsAsync<List<UserAdminViewModel>>();
+            var users = _mapper.Map<IEnumerable<UserAdminViewModel>>(await userAdminService.GetAllUsers());
+
             return View(users);
         }
 
@@ -30,25 +30,25 @@ namespace SchedulingMeetings.Web.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Login([FromForm]UserAdminViewModel userAdmin)
-        {
-            var userAdminService = new UserAdminService();
-            var clienteDB = userAdminService.Login(userAdmin.Email, userAdmin.Password);
+        //[HttpPost]
+        //public IActionResult Login([FromForm]UserAdminViewModel userAdmin)
+        //{
+        //    var userAdminService = new UserAdminService();
+        //    var clienteDB = userAdminService.Login(userAdmin.Email, userAdmin.Password);
 
 
-            if (clienteDB != null)
-            {
-                //_loginCliente.Login(clienteDB);
+        //    if (clienteDB != null)
+        //    {
+        //        //_loginCliente.Login(clienteDB);
 
-                return new RedirectResult(Url.Action(nameof(HomeController)));
-            }
-            else
-            {
-                ViewData["MSG_E"] = "Usuário não encontrado, verifique o e-mail e senha digitado!";
-                return View();
-            }
-        }
+        //        return new RedirectResult(Url.Action(nameof(HomeController)));
+        //    }
+        //    else
+        //    {
+        //        ViewData["MSG_E"] = "Usuário não encontrado, verifique o e-mail e senha digitado!";
+        //        return View();
+        //    }
+        //}
 
         [Route("adduser")]
         public IActionResult AddUser()
@@ -61,17 +61,16 @@ namespace SchedulingMeetings.Web.Controllers
         public async Task<IActionResult> CreateUser(UserAdminViewModel userAdmin)
         {
             var userAdminService = new UserAdminService();
-            var createUser = await userAdminService.AddUsers(userAdmin);
+            var createUser = _mapper.Map<UserAdminViewModel>(await userAdminService.AddUsers(userAdmin));
             return RedirectToAction("Index", createUser);
         }
 
         [HttpGet]
         [Route("updateuser/{id}")]
-        public IActionResult EditUser(Guid id)
+        public async Task< IActionResult> EditUser(Guid id)
         {
             var userAdminService = new UserAdminService();
-            var user = userAdminService.GetByUsersIdentity
-                (id).Result.Content.ReadAsAsync<UserAdminViewModel>().Result;
+            var user = _mapper.Map<UserAdminViewModel>(await userAdminService.GetByUsersIdentity(id));
             return View("Edit", user);
         }
 
@@ -80,7 +79,7 @@ namespace SchedulingMeetings.Web.Controllers
         public async Task<IActionResult> EditUser(Guid id, UserAdminViewModel userAdmin)
         {
             var userAdminService = new UserAdminService();
-            var update = await userAdminService.EditUsers(id, userAdmin);
+            var update = _mapper.Map<UserAdminViewModel>(await userAdminService.EditUsers(id, userAdmin));
             return RedirectToAction("Index", update);
         }
 
@@ -88,7 +87,7 @@ namespace SchedulingMeetings.Web.Controllers
         public async Task<IActionResult> DeleteUser(Guid id)
         {
             var userAdminService = new UserAdminService();
-            await userAdminService.DeleteUsers(id);
+            _mapper.Map<RoomViewModel>(await userAdminService.DeleteUsers(id));
             return RedirectToAction("Index");
         }
     }

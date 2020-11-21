@@ -12,7 +12,7 @@ namespace SchedulingMeetings.Web.DTO.Scheduling
         public string Title { get; set; }
         public Guid RoomIdentity { get; set; }
         public RoomViewModel Rooms { get; set; }
-        //public IEnumerable<RoomViewModel> Room { get; set; }
+        public IEnumerable<RoomViewModel> Room { get; set; }
         public DateTime DateStartTime { get; set; }
         public DateTime DateEndTime { get; set; }
     }
