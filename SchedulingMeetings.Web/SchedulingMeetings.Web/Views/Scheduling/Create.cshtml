@@ -10,7 +10,7 @@
 <br />
 
 
-<form>
+<form asp-controller="scheduling" method="post" asp-action="createscheduling">
     <div class="col-md-12">
         @Html.LabelFor(m => m.RoomIdentity, "Escolha a Sala:")
         @Html.DropDownListFor(m => m.RoomIdentity, new SelectList(Model.Room, "RoomIdentity", "RoomName", Model.Room.First().RoomIdentity), "-- Selecione a Sala --", new { @class = "form-control", @roomIdentity = "room", @required = "true", @style = "padding-top: 3px;" })<br />

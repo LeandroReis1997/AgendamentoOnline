@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SchedulingMeetings.Web.DTO.Room;
+using SchedulingMeetings.Web.HttpClientAddres;
 using SchedulingMeetings.Web.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -11,22 +12,24 @@ namespace SchedulingMeetings.Web.Service
 {
     public class RoomService
     {
-        private string BASE_URL = "https://localhost:44355/webapi/";
+        //private string BASE_URL = "https://localhost:44355/webapi/";
 
         public async Task<RoomDTO> AddRoom(RoomViewModel room)
         {
+            var url = new BaseAddress();
             var client = new HttpClient();
-            client.BaseAddress = new Uri(BASE_URL);
+            client.BaseAddress = new Uri(url.BASE_URL);
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
-            var response = await client.PostAsJsonAsync($"/room/create", room);
+            var response = await client.PostAsJsonAsync($"room/create", room);
             return JsonConvert.DeserializeObject<RoomDTO>(await response.Content.ReadAsStringAsync());
         }
 
         public async Task<RoomDTO> DeleteRoom(Guid roomIdentity)
         {
+            var url = new BaseAddress();
             var client = new HttpClient();
-            client.BaseAddress = new Uri(BASE_URL);
+            client.BaseAddress = new Uri(url.BASE_URL);
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
             var response = await client.DeleteAsync($"/delete/{roomIdentity}");
@@ -35,8 +38,9 @@ namespace SchedulingMeetings.Web.Service
 
         public async Task<RoomDTO> EditRoom(Guid roomIdentity, RoomViewModel room)
         {
+            var url = new BaseAddress();
             var client = new HttpClient();
-            client.BaseAddress = new Uri(BASE_URL);
+            client.BaseAddress = new Uri(url.BASE_URL);
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
             var response = await client.PutAsJsonAsync($"/room/update/{roomIdentity}", room);
@@ -45,8 +49,9 @@ namespace SchedulingMeetings.Web.Service
 
         public async Task<IEnumerable<RoomListDTO>> GetAllRoom()
         {
+            var url = new BaseAddress();
             var client = new HttpClient();
-            client.BaseAddress = new Uri(BASE_URL);
+            client.BaseAddress = new Uri(url.BASE_URL);
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
             var response = await client.GetAsync("room/");
@@ -55,8 +60,9 @@ namespace SchedulingMeetings.Web.Service
 
         public Task<HttpResponseMessage> GetByRoom(string nameRoom)
         {
+            var url = new BaseAddress();
             var client = new HttpClient();
-            client.BaseAddress = new Uri(BASE_URL);
+            client.BaseAddress = new Uri(url.BASE_URL);
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
             return client.GetAsync($"getbyroom/{nameRoom}");
@@ -64,8 +70,9 @@ namespace SchedulingMeetings.Web.Service
 
         public async Task<RoomListDTO> GetByRoomIdentity(Guid roomIdentity)
         {
+            var url = new BaseAddress();
             var client = new HttpClient();
-            client.BaseAddress = new Uri(BASE_URL);
+            client.BaseAddress = new Uri(url.BASE_URL);
             client.DefaultRequestHeaders.Accept.Add(new
                 MediaTypeWithQualityHeaderValue("application/json"));
             var response = await client.GetAsync($"room/{roomIdentity}");

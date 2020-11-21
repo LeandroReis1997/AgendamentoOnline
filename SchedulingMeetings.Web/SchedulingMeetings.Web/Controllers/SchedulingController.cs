@@ -22,14 +22,25 @@ namespace SchedulingMeetings.Web.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Create()
+        [Route("addscheduling")]
+        public async Task<IActionResult> AddScheduling()
         {
             var roomService = new RoomService();
             var scheduling = new SchedulingViewModel();
             scheduling.DateStartTime = DateTime.Today.AddHours(DateTime.Now.Hour).AddMinutes(DateTime.Now.Minute);
             scheduling.DateEndTime = DateTime.Today.AddHours(DateTime.Now.Hour).AddMinutes(DateTime.Now.Minute);
             scheduling.Room = _mapper.Map<IEnumerable<RoomViewModel>>(await roomService.GetAllRoom());
-            return View(scheduling);
+            return View("Create", scheduling);
         }
+
+        [HttpPost]
+        [Route("createscheduling")]
+        public async Task<IActionResult> CreateScheduling(SchedulingViewModel scheduling)
+        {
+            var schedulingService = new SchedulingService();
+            var createSscheduling = _mapper.Map<SchedulingViewModel>(await schedulingService.AddRoomScheduling(scheduling));
+            return RedirectToAction("Index", createSscheduling);
+        }
+
     }
 }
