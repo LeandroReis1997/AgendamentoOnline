@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - SchedulingMeetings.Web</title>
+    <title>Agendamento</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -28,14 +28,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-page="/Index" class="navbar-brand">Agendamento Online</a>
+                <a class="navbar-brand" asp-controller="scheduling" asp-action="getallroomsscheduling">Agendamento Online</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a class="nav-link text-dark" asp-controller="home" asp-action="index">Home</a></li>
-                    <li><a class="nav-link text-dark" asp-controller="useradmin" asp-action="Login">Login</a></li>
                     <li><a class="nav-link text-dark" asp-controller="room" asp-action="index">Salas</a></li>
-                    <li><a class="nav-link text-dark" asp-controller="scheduling" asp-action="getallroomsscheduling">Agendamento</a></li>
                 </ul>
             </div>
         </div>

@@ -24,7 +24,9 @@ namespace SchedulingMeetings.Web.Controllers
 
             return View(scheduling);
         }
-
+        
+        [Route("~/")]
+        [Route("getallroomsscheduling")]
         public async Task<IActionResult> GetAllRoomsScheduling()
         {
             var roomService = new RoomService();
@@ -77,7 +79,7 @@ namespace SchedulingMeetings.Web.Controllers
         {
             var schedulingService = new SchedulingService();
             var update = _mapper.Map<SchedulingViewModel>(await schedulingService.EditRoomScheduling(id, scheduling));
-            return RedirectToAction("ScheduledRoom", update);
+            return RedirectToAction("GetAllRoomsScheduling", update);
         }
                
         [Route("deletescheduling/{id}")]

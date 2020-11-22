@@ -58,7 +58,7 @@ namespace SchedulingMeetings.Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=home}/{action=Index}/{id?}");
+                    template: "{controller=scheduling}/{action=getallroomsscheduling}/{id?}");
             });
         }
     }

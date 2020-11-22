@@ -66,15 +66,7 @@ namespace SchedulingMeetings.Web.Service
             var response = await client.GetAsync($"useradmin/getbyemail/{email}");
             return JsonConvert.DeserializeObject<UserAdminListDTO>(await response.Content.ReadAsStringAsync());
         }
-        //public Task<HttpResponseMessage> Login(string email, string senha)
-        //{
-        //    var client = new HttpClient();
-        //    client.BaseAddress = new Uri(BASE_URL);
-        //    client.DefaultRequestHeaders.Accept.Add(new
-        //        MediaTypeWithQualityHeaderValue("application/json"));
-        //    return client.GetAsync($"login/{email}/{senha}");
-        //}
-
+        
         public async Task<UserAdminListDTO> GetByUsersIdentity(Guid userIdentity)
         {
             var url = new BaseAddress();
